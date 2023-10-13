@@ -9,9 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CommentByPost {
+public class PostTitleDto {
 
-    private int postId;
-    private String comment;
-
+    private String postTitle;
 }

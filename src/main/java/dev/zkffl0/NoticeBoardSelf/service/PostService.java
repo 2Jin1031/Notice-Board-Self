@@ -1,15 +1,14 @@
 package dev.zkffl0.NoticeBoardSelf.service;
 
-import dev.zkffl0.NoticeBoardSelf.Dto.CommentByPost;
+import dev.zkffl0.NoticeBoardSelf.Dto.PostTitleDto;
 import dev.zkffl0.NoticeBoardSelf.domain.Comment;
 import dev.zkffl0.NoticeBoardSelf.domain.Post;
 import dev.zkffl0.NoticeBoardSelf.repository.CommentRepository;
 import dev.zkffl0.NoticeBoardSelf.repository.PostRepository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -90,5 +89,17 @@ public class PostService{
     public List<Post> getAllList () {
         List<Post> postList = postRepository.findAll();
         return postList;
+    }
+
+    public List<PostTitleDto> getPostTitleList() {
+        List<Post> postList = postRepository.findAll(); // 데이터베이스에서 모든 Post 객체를 가져와서 postlist 에 저장
+        List<PostTitleDto> postTitleDtoList = new ArrayList<>(); // PostTitleDto 객체를 저장할 빈 ArrayList를 만듬 -> 이 목록은 게시물의 제목을 저장
+
+        for (Post post : postList) { // postList에 있는 각 Post 객체에 대해 반복
+            PostTitleDto postTitleDto = new PostTitleDto(); // 각 게시물에 대한 새로운 PostTitleDto 객체 생성
+            postTitleDto.setPostTitle(post.getTitle()); // 현재 처리 중인 게시물의 제목을 PostTitleDto 객체에 설정
+            postTitleDtoList.add(postTitleDto); // 완성된 PostTitleDto 객체를 postTitleDtoList 목록에 반환
+        }
+        return postTitleDtoList;
     }
 }

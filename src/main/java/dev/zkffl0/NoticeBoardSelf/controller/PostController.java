@@ -1,6 +1,6 @@
 package dev.zkffl0.NoticeBoardSelf.controller;
 
-import dev.zkffl0.NoticeBoardSelf.Dto.CommentByPost;
+import dev.zkffl0.NoticeBoardSelf.Dto.PostTitleDto;
 import dev.zkffl0.NoticeBoardSelf.domain.Comment;
 import dev.zkffl0.NoticeBoardSelf.domain.Post;
 import dev.zkffl0.NoticeBoardSelf.service.PostService;
@@ -59,12 +59,12 @@ public class PostController {
         return new ResponseEntity<>(post, HttpStatus.OK);
     }
 
-//    @GetMapping("/postTitle-list") // 전체 게시글(제목) 리스트 조회하기 -> ok
-//    public ResponseEntity<List<Post>> getPostTitleList() {
-//
-//        List<Post> post = postService.getAllList();
-//        return new ResponseEntity<>(post, HttpStatus.OK);
-//    }
+    @GetMapping("/postTitle-list") // 전체 게시글(제목) 리스트 조회하기 -> ok
+    public ResponseEntity<List<PostTitleDto>> getPostTitleList() {
+
+        List<PostTitleDto> postTitleDtoList = postService.getPostTitleList();
+        return new ResponseEntity<>(postTitleDtoList, HttpStatus.OK);
+    }
     @PostMapping("/post/{id}") // 게시글 업데이트하기 (게시글 제목 + 내용 수정) -> ok
     public ResponseEntity<Optional<Post>> updatePost(@PathVariable("id") Long id, @RequestBody Post post) {
 

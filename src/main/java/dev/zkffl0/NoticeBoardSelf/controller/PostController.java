@@ -19,7 +19,7 @@ public class PostController {
 
     private final PostService postService;
 
-    @PostMapping("/post")
+    @PostMapping("/post") // 게시글 생성하기 -> ok
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
 
         try {
@@ -33,7 +33,7 @@ public class PostController {
         return null;
     }
 
-    @GetMapping("/post/{id}")
+    @GetMapping("/post/{id}") // 게시글 조회하기 -> ok
     public ResponseEntity<Optional<Post>> getPostbyId(@PathVariable("id") Long id) {
 
         try {
@@ -45,14 +45,27 @@ public class PostController {
         return null;
     }
 
-    @GetMapping("/{id}/comments")
+    @GetMapping("/{id}/comments") // 댓글들 조회하기(게시글 id로) -> ok
     public ResponseEntity<Optional<List<Comment>>> getCommentForPost(@PathVariable("id") Long id) {
 
         Optional<List<Comment>> comments = postService.getCommentsForPost(id);
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
-    @PostMapping("/post/{id}")
+    @GetMapping("/postAll-list") // 전체 게시글(제목 + 내용) 리스트 조회하기 -> ok
+    public ResponseEntity<List<Post>> getPostAllList() {
+
+        List<Post> post = postService.getAllList();
+        return new ResponseEntity<>(post, HttpStatus.OK);
+    }
+
+//    @GetMapping("/postTitle-list") // 전체 게시글(제목) 리스트 조회하기 -> ok
+//    public ResponseEntity<List<Post>> getPostTitleList() {
+//
+//        List<Post> post = postService.getAllList();
+//        return new ResponseEntity<>(post, HttpStatus.OK);
+//    }
+    @PostMapping("/post/{id}") // 게시글 업데이트하기 (게시글 제목 + 내용 수정) -> ok
     public ResponseEntity<Optional<Post>> updatePost(@PathVariable("id") Long id, @RequestBody Post post) {
 
         try {
@@ -66,7 +79,7 @@ public class PostController {
         return null;
     }
 
-    @DeleteMapping("/post/{id}")
+    @DeleteMapping("/post/{id}") // 게시글 삭제하기 -> ok
     public ResponseEntity<HttpStatus> deletePost (@PathVariable("id") Long id) {
         try {
             postService.delete(id);

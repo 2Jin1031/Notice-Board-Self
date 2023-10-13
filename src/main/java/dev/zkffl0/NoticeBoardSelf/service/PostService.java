@@ -86,4 +86,9 @@ public class PostService{
             e.printStackTrace();
         }
     }
+
+    public List<Post> getAllList () {
+        List<Post> postList = postRepository.findAll();
+        return postList;
+    }
 }

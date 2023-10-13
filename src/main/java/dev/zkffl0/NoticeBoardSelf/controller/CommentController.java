@@ -18,7 +18,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/comment")
+    @PostMapping("/comment") // 댓글 생성하기
     public ResponseEntity<Comment> createComment (@RequestBody CommentAddDto infoDto) {
 
         try {
@@ -32,7 +32,7 @@ public class CommentController {
         return null;
     }
 
-    @GetMapping ("/comment/{id}")
+    @GetMapping ("/comment/{id}")  // 댓글 조회하기
     public ResponseEntity<Optional<Comment>> getCommentById (@PathVariable("id") Long id) {
 
         try {
@@ -46,7 +46,7 @@ public class CommentController {
 
 
 
-    @PostMapping ("/comment/{id}")
+    @PostMapping ("/comment/{id}") // 댓글 업데이트하기 (댓글 내용 수정)
     public ResponseEntity<Optional<Comment>> updateComment (@PathVariable("id") Long id, @RequestBody CommentAddDto infoDto) {
 
         try {
@@ -60,7 +60,7 @@ public class CommentController {
         return null;
     }
 
-    @DeleteMapping("/comment/{id}")
+    @DeleteMapping("/comment/{id}") // 댓글 삭제하기
     public ResponseEntity<HttpStatus> deleteComment(@PathVariable("id") Long id) {
 
         try {

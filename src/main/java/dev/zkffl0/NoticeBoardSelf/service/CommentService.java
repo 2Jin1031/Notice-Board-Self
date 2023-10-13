@@ -20,15 +20,18 @@ public class CommentService {
 
     public Comment save(CommentAddDto infoDto) {
 
-        Long postId = infoDto.getPostId();
-        Optional<Post> optionalPost = postRepository.findById(postId);
+        Long postId = infoDto.getPostId(); // infoDto에서 postId 가져옴
+        Optional<Post> optionalPost = postRepository.findById(postId); // 이 postId로 데이터베이스에서 Post OptionalPost로 가져옴
+
         if (optionalPost.isEmpty()) {
             throw new RuntimeException("해당 정보는 존재하지 않습니다.");
         }
 
-        Comment _comment = Comment.builder()
-                .content(infoDto.getComment_content()) // infoDto
-                .post(optionalPost.get())
+        Post post = optionalPost.get(); // optionalPost가 비어있지 않다면, 게시물을 post 변수에 할당
+
+        Comment _comment = Comment.builder() // Comment 객체 생성
+                .content(infoDto.getComment_content()) // infoDto에서 댓글 내용(comment_content) 사용
+                .post(post) // post를 사용
                 .build();
 
         try {

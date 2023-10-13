@@ -18,21 +18,13 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/comment") // 댓글 생성하기
-    public ResponseEntity<Comment> createComment (@RequestBody CommentAddDto infoDto) {
-
-        try {
-            ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(commentService.save(infoDto));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+    @PostMapping("/comment") // 댓글 생성하기 -> ok
+    public ResponseEntity<Comment> createComment(@RequestBody CommentAddDto infoDto) {
+        Comment comment = commentService.save(infoDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(comment);
     }
 
-    @GetMapping ("/comment/{id}")  // 댓글 조회하기
+    @GetMapping ("/comment/{id}")  // 댓글 조회하기 -> ok
     public ResponseEntity<Optional<Comment>> getCommentById (@PathVariable("id") Long id) {
 
         try {
@@ -43,8 +35,7 @@ public class CommentController {
 
         return null;
     }
-
-
+    
 
     @PostMapping ("/comment/{id}") // 댓글 업데이트하기 (댓글 내용 수정)
     public ResponseEntity<Optional<Comment>> updateComment (@PathVariable("id") Long id, @RequestBody CommentAddDto infoDto) {

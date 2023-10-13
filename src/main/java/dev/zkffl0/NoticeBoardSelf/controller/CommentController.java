@@ -35,9 +35,9 @@ public class CommentController {
 
         return null;
     }
-    
 
-    @PostMapping ("/comment/{id}") // 댓글 업데이트하기 (댓글 내용 수정)
+
+    @PostMapping ("/comment/{id}") // 댓글 업데이트하기 (댓글 내용 수정) -> ok
     public ResponseEntity<Optional<Comment>> updateComment (@PathVariable("id") Long id, @RequestBody CommentAddDto infoDto) {
 
         try {
@@ -50,8 +50,8 @@ public class CommentController {
 
         return null;
     }
-
-    @DeleteMapping("/comment/{id}") // 댓글 삭제하기
+    
+    @DeleteMapping("/comment/{id}") // 댓글 삭제하기 -> ok
     public ResponseEntity<HttpStatus> deleteComment(@PathVariable("id") Long id) {
 
         try {

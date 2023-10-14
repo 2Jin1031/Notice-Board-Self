@@ -53,7 +53,10 @@ public class PostService{
         }
 
         List<Comment> comments = commentRepository.findByPost(postData.get());
-        return Optional.ofNullable(comments);
+        if (comments.isEmpty()) {
+            throw new RuntimeException("댓글이 없습니다.");
+        }
+        return Optional.of(comments);
 
 //        try {
 //            Optional<List<Comment>> CommentData = postRepository.findById(id);

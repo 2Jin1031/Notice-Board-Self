@@ -3,6 +3,9 @@ package dev.zkffl0.NoticeBoardSelf.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +24,7 @@ public class Post {
 
     @Column(name = "content")
     private String content;
+//
+//    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+//    private List<Comment> comments;
 }

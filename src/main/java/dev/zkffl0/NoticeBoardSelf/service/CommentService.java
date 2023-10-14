@@ -63,7 +63,9 @@ public class CommentService {
             Optional<Comment> optionalComment = commentRepository.findById(id);
             if (optionalComment.isPresent()) {
                 Comment _comment = optionalComment.get();
-                _comment.setContent(comment.getContent());
+
+                if (comment.getContent() != null)
+                    _comment.setContent(comment.getContent());
                 commentRepository.save(_comment);
                 return _comment;
             }

@@ -56,12 +56,13 @@ public class CommentService {
 
         return null;
     }
+
     public Comment update(Long id, Comment comment) {
 
         try {
-            Optional<Comment> commentData = commentRepository.findById(id);
-            if (commentData.isPresent()) {
-                Comment _comment = commentData.get();
+            Optional<Comment> optionalComment = commentRepository.findById(id);
+            if (optionalComment.isPresent()) {
+                Comment _comment = optionalComment.get();
                 _comment.setContent(comment.getContent());
                 commentRepository.save(_comment);
                 return _comment;
@@ -85,4 +86,21 @@ public class CommentService {
     public List<Comment> findByPost(Post post) {
         return commentRepository.findByPost(post);
     }
+
+    public Long findPostIdByCommentId(Long id) {
+
+        try {
+        Optional<Comment> commentData = commentRepository.findById(id);
+
+            if (commentData.isPresent()) {
+                Comment _comment  = commentData.get();
+                return _comment.getPost().getId();
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

@@ -38,19 +38,19 @@ public class CommentController {
 
 
     @PostMapping ("/comment/{id}") // 댓글 업데이트하기 (댓글 내용 수정) -> ok
-    public ResponseEntity<Optional<Comment>> updateComment (@PathVariable("id") Long id, @RequestBody CommentAddDto infoDto) {
+    public ResponseEntity<Optional<Comment>> updateComment (@PathVariable("id") Long id, @RequestBody Comment infoDto) {
 
         try {
             ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(commentService.save(infoDto));
+                    .body(commentService.update(id, infoDto));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return null;
     }
-    
+
     @DeleteMapping("/comment/{id}") // 댓글 삭제하기 -> ok
     public ResponseEntity<HttpStatus> deleteComment(@PathVariable("id") Long id) {
 

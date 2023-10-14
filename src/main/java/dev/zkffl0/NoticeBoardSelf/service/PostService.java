@@ -66,8 +66,11 @@ public class PostService{
             Optional<Post> postData = postRepository.findById(id);
             if (postData.isPresent()) {
                 Post _post = postData.get();
-                _post.setTitle(post.getTitle());
-                _post.setContent(post.getContent());
+
+                if (post.getTitle() != null)
+                    _post.setTitle(post.getTitle());
+                if (post.getContent() != null)
+                    _post.setContent(post.getContent());
                 postRepository.save(_post);
                 return _post;
             }

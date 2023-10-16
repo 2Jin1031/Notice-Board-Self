@@ -1,10 +1,9 @@
 package dev.zkffl0.NoticeBoardSelf.controller;
 
-import dev.zkffl0.NoticeBoardSelf.Dto.CommentAddDto;
+import dev.zkffl0.NoticeBoardSelf.Dto.CommentContentByPostIdDto;
 import dev.zkffl0.NoticeBoardSelf.domain.Comment;
 import dev.zkffl0.NoticeBoardSelf.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/comment") // 댓글 생성하기 -> ok
-    public ResponseEntity<Comment> createComment(@RequestBody CommentAddDto infoDto) {
+    public ResponseEntity<Comment> createComment(@RequestBody CommentContentByPostIdDto infoDto) {
         Comment comment = commentService.save(infoDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(comment);
     }

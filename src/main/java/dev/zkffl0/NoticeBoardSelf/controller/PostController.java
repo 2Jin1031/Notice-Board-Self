@@ -1,7 +1,7 @@
 package dev.zkffl0.NoticeBoardSelf.controller;
 
+import dev.zkffl0.NoticeBoardSelf.Dto.AllPostAllCommentDto;
 import dev.zkffl0.NoticeBoardSelf.Dto.PostTitleDto;
-import dev.zkffl0.NoticeBoardSelf.domain.Comment;
 import dev.zkffl0.NoticeBoardSelf.domain.Post;
 import dev.zkffl0.NoticeBoardSelf.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -46,9 +46,9 @@ public class PostController {
     }
 
     @GetMapping("/{id}/comments") // 댓글들 조회하기(게시글 id로) -> ok
-    public ResponseEntity<Optional<List<Comment>>> getCommentForPost(@PathVariable("id") Long id) {
+    public ResponseEntity<Optional<AllPostAllCommentDto>> getCommentForPost(@PathVariable("id") Long id) {
 
-        Optional<List<Comment>> comments = postService.getCommentsForPost(id);
+        Optional<AllPostAllCommentDto> comments = postService.getCommentsForPost(id);
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 

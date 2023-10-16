@@ -1,7 +1,7 @@
 package dev.zkffl0.NoticeBoardSelf.service;
 
+import dev.zkffl0.NoticeBoardSelf.Dto.AllPostAllCommentDto;
 import dev.zkffl0.NoticeBoardSelf.Dto.PostTitleDto;
-import dev.zkffl0.NoticeBoardSelf.domain.Comment;
 import dev.zkffl0.NoticeBoardSelf.domain.Post;
 import dev.zkffl0.NoticeBoardSelf.repository.CommentRepository;
 import dev.zkffl0.NoticeBoardSelf.repository.PostRepository;
@@ -45,18 +45,18 @@ public class PostService{
         return null;
     }
 
-    public Optional<List<Comment>> getCommentsForPost(Long id) {
+    public Optional<AllPostAllCommentDto> getCommentsForPost(Long id) {
 
         Optional<Post> postData = postRepository.findById(id);
         if (postData.isEmpty()) {
             throw new RuntimeException("해당 정보는 존재하지 않습니다.");
         }
 
-        List<Comment> comments = commentRepository.findByPost(postData.get());
+        Optional<AllPostAllCommentDto> comments = commentRepository.findByPost(postData.get());
         if (comments.isEmpty()) {
             throw new RuntimeException("댓글이 없습니다.");
         }
-        return Optional.of(comments);
+        return comments;
 
 //        try {
 //            Optional<List<Comment>> CommentData = postRepository.findById(id);

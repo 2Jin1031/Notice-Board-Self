@@ -1,15 +1,14 @@
 package dev.zkffl0.NoticeBoardSelf.service;
 
-import dev.zkffl0.NoticeBoardSelf.Dto.CommentAddDto;
+import dev.zkffl0.NoticeBoardSelf.Dto.CommentContentByPostIdDto;
+import dev.zkffl0.NoticeBoardSelf.Dto.AllPostAllCommentDto;
 import dev.zkffl0.NoticeBoardSelf.domain.Comment;
 import dev.zkffl0.NoticeBoardSelf.domain.Post;
 import dev.zkffl0.NoticeBoardSelf.repository.CommentRepository;
 import dev.zkffl0.NoticeBoardSelf.repository.PostRepository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 @Service
 @RequiredArgsConstructor // 어노테이션
@@ -18,7 +17,7 @@ public class CommentService {
     private final CommentRepository commentRepository; // private final
     private final PostRepository postRepository;
 
-    public Comment save(CommentAddDto infoDto) {
+    public Comment save(CommentContentByPostIdDto infoDto) {
 
         Long postId = infoDto.getPostId(); // infoDto에서 postId 가져옴
         Optional<Post> optionalPost = postRepository.findById(postId); // 이 postId로 데이터베이스에서 Post OptionalPost로 가져옴
@@ -85,7 +84,7 @@ public class CommentService {
         }
     }
 
-    public List<Comment> findByPost(Post post) {
+    public Optional<AllPostAllCommentDto> findByPost(Post post) {
         return commentRepository.findByPost(post);
     }
 

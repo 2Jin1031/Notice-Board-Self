@@ -7,7 +7,9 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class CommentAddDto {
+public class CommentContentByPostIdDto {
+
     private String comment_content;
+
     private Long postId;
 }

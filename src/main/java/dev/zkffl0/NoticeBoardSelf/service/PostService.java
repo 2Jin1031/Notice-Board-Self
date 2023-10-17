@@ -1,7 +1,9 @@
 package dev.zkffl0.NoticeBoardSelf.service;
 
-import dev.zkffl0.NoticeBoardSelf.Dto.AllPostAllCommentDto;
+import dev.zkffl0.NoticeBoardSelf.Dto.CommentsByPost;
+import dev.zkffl0.NoticeBoardSelf.Dto.CommentDto;
 import dev.zkffl0.NoticeBoardSelf.Dto.PostTitleDto;
+import dev.zkffl0.NoticeBoardSelf.domain.Comment;
 import dev.zkffl0.NoticeBoardSelf.domain.Post;
 import dev.zkffl0.NoticeBoardSelf.repository.CommentRepository;
 import dev.zkffl0.NoticeBoardSelf.repository.PostRepository;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class PostService{
@@ -45,22 +49,28 @@ public class PostService{
         return null;
     }
 
-    public Optional<AllPostAllCommentDto> getCommentsForPost(Long id) {
+    public CommentsByPost getCommentsForPost(Long postId) {
 
-        Optional<Post> postData = postRepository.findById(id);
+        Optional<Post> postData = postRepository.findById(postId);
         if (postData.isEmpty()) {
             throw new RuntimeException("해당 정보는 존재하지 않습니다.");
         }
 
-        Optional<AllPostAllCommentDto> comments = commentRepository.findByPost(postData.get());
-        if (comments.isEmpty()) {
-            throw new RuntimeException("댓글이 없습니다.");
+        Optional<List<Comment>> optionalCommentList = commentRepository.findByPostId(postId);
+        if (optionalCommentList.isEmpty()) {
+            throw new RuntimeException("해당 게시물에는 댓글이 존재하지 않습니다.");
         }
-        return comments;
 
-//        try {
-//            Optional<List<Comment>> CommentData = postRepository.findById(id);
-//        }
+        Post post = postData.get();
+        List<Comment> commentList = optionalCommentList.get();
+
+        List<CommentDto> commentDtoList = commentList.stream()
+                .map(comment -> CommentDto.from(comment))
+                .collect(Collectors.toList());
+
+        CommentsByPost commentsByPost = CommentsByPost.from(post, commentDtoList);
+
+        return commentsByPost;
     }
 
     public Post update(Long id, Post post) {

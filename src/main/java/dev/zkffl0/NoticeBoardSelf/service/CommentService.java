@@ -1,7 +1,6 @@
 package dev.zkffl0.NoticeBoardSelf.service;
 
 import dev.zkffl0.NoticeBoardSelf.Dto.CommentContentByPostIdDto;
-import dev.zkffl0.NoticeBoardSelf.Dto.AllPostAllCommentDto;
 import dev.zkffl0.NoticeBoardSelf.domain.Comment;
 import dev.zkffl0.NoticeBoardSelf.domain.Post;
 import dev.zkffl0.NoticeBoardSelf.repository.CommentRepository;
@@ -9,6 +8,7 @@ import dev.zkffl0.NoticeBoardSelf.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 @RequiredArgsConstructor // 어노테이션
@@ -84,9 +84,9 @@ public class CommentService {
         }
     }
 
-    public Optional<AllPostAllCommentDto> findByPost(Post post) {
-        return commentRepository.findByPost(post);
-    }
+//    public Optional<Comment> findByPost(Post post) {
+//        return commentRepository.findByPost(post);
+//    }
 
     public Long findPostIdByCommentId(Long id) {
 
@@ -103,5 +103,9 @@ public class CommentService {
         return null;
     }
 
+    public Optional<List<Comment>> findByPostId(Long postId) {
+        Optional<List<Comment>> commentList = commentRepository.findByPostId(postId);
+        return commentList;
+    }
 
 }

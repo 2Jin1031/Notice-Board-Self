@@ -84,10 +84,6 @@ public class CommentService {
         }
     }
 
-//    public Optional<Comment> findByPost(Post post) {
-//        return commentRepository.findByPost(post);
-//    }
-
     public Long findPostIdByCommentId(Long id) {
 
         try {

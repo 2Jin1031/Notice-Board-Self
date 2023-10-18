@@ -1,6 +1,6 @@
 package dev.zkffl0.NoticeBoardSelf.controller;
 
-import dev.zkffl0.NoticeBoardSelf.Dto.CommentsByPost;
+import dev.zkffl0.NoticeBoardSelf.Dto.CommentsByPostDto;
 import dev.zkffl0.NoticeBoardSelf.Dto.PostTitleDto;
 import dev.zkffl0.NoticeBoardSelf.domain.Post;
 import dev.zkffl0.NoticeBoardSelf.service.PostService;
@@ -45,10 +45,10 @@ public class PostController {
         return null;
     }
 
-    @GetMapping("/{id}/comments") // 댓글들 조회하기(게시글 id로) ->
-    public ResponseEntity<CommentsByPost> getCommentForPost(@PathVariable("id") Long id) {
+    @GetMapping("/{id}/comments") // 댓글들 조회하기(게시글 id로) -> ok
+    public ResponseEntity<CommentsByPostDto> getCommentsForPost(@PathVariable("id") Long id) {
 
-        CommentsByPost comments = postService.getCommentsForPost(id);
+        CommentsByPostDto comments = postService.getCommentsForPost(id);
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 

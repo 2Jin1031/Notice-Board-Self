@@ -24,7 +24,4 @@ public class Post {
 
     @Column(name = "content")
     private String content;
-//
-//    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-//    private List<Comment> comments;
 }

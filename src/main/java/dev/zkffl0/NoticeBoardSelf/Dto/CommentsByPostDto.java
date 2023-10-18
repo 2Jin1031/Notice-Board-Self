@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class CommentsByPost {
+public class CommentsByPostDto {
 
     private Long postId;
 
@@ -21,8 +21,8 @@ public class CommentsByPost {
     private List<CommentDto> comments;
 
     // 추가로, Post와 Comment를 DTO로 변환하는 메서드나 생성자를 정의할 수 있습니다.
-    public static CommentsByPost from(Post post, List<CommentDto> comments) {
-        return CommentsByPost.builder()
+    public static CommentsByPostDto from(Post post, List<CommentDto> comments) {
+        return CommentsByPostDto.builder()
                 .postId(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())

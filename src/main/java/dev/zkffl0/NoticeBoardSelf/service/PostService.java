@@ -1,6 +1,6 @@
 package dev.zkffl0.NoticeBoardSelf.service;
 
-import dev.zkffl0.NoticeBoardSelf.Dto.CommentsByPost;
+import dev.zkffl0.NoticeBoardSelf.Dto.CommentsByPostDto;
 import dev.zkffl0.NoticeBoardSelf.Dto.CommentDto;
 import dev.zkffl0.NoticeBoardSelf.Dto.PostTitleDto;
 import dev.zkffl0.NoticeBoardSelf.domain.Comment;
@@ -28,6 +28,10 @@ public class PostService{
                    .title(post.getTitle())
                    .content(post.getContent())
                    .build();
+//           builder은 아래 주석과 동일한 결과를 생성하지만 유연하게 데이터 가공 가능
+//           Post postData = new Post();
+//           postData.setTitle(post.getTitle());
+//           postData.setContent(post.getContent());
 
            return postRepository.save(postData);
        } catch (Exception e) {
@@ -49,7 +53,7 @@ public class PostService{
         return null;
     }
 
-    public CommentsByPost getCommentsForPost(Long postId) {
+    public CommentsByPostDto getCommentsForPost(Long postId) {
 
         Optional<Post> postData = postRepository.findById(postId);
         if (postData.isEmpty()) {
@@ -68,9 +72,9 @@ public class PostService{
                 .map(comment -> CommentDto.from(comment))
                 .collect(Collectors.toList());
 
-        CommentsByPost commentsByPost = CommentsByPost.from(post, commentDtoList);
+        CommentsByPostDto commentsByPostDto = CommentsByPostDto.from(post, commentDtoList);
 
-        return commentsByPost;
+        return commentsByPostDto;
     }
 
     public Post update(Long id, Post post) {

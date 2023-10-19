@@ -18,7 +18,6 @@ public class PageDto {
     private int endN; // 마지막 페이지 글 목록의 마지막 번호
     private int startPage; // 페이지 이동 버튼의 시작 번호
     private int endPage; // 페이지 이동 버튼의 마지막 번호
-    private int totalPage;
 
     public PageDto(int pageN, int pageSize, int totalCount) {
         this.pageSize = pageSize;
